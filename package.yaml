@@ -1,0 +1,68 @@
+name:                bulk-publish
+version:             0.1.0.0
+github:              "sharmrj/bulk-publish"
+license:             BSD3
+author:              "Raghav Sharma"
+maintainer:          "raghavs@adobe.com"
+copyright:           "2023 Raghav Sharma"
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/sharmrj/bulk-publish#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- hexml
+- bytestring
+- zip
+- containers
+- http-client
+- http-conduit
+- async
+- safe-exceptions
+- split
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  bulk-publish-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - bulk-publish
+
+tests:
+  bulk-publish-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - bulk-publish

@@ -1,0 +1,86 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           bulk-publish
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/sharmrj/bulk-publish#readme>
+homepage:       https://github.com/sharmrj/bulk-publish#readme
+bug-reports:    https://github.com/sharmrj/bulk-publish/issues
+author:         Raghav Sharma
+maintainer:     raghavs@adobe.com
+copyright:      2023 Raghav Sharma
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/sharmrj/bulk-publish
+
+library
+  other-modules:
+      Paths_bulk_publish
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , hexml
+    , http-client
+    , http-conduit
+    , safe-exceptions
+    , split
+    , zip
+  default-language: Haskell2010
+
+executable bulk-publish-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_bulk_publish
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bulk-publish
+    , bytestring
+    , containers
+    , hexml
+    , http-client
+    , http-conduit
+    , safe-exceptions
+    , split
+    , zip
+  default-language: Haskell2010
+
+test-suite bulk-publish-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_bulk_publish
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , bulk-publish
+    , bytestring
+    , containers
+    , hexml
+    , http-client
+    , http-conduit
+    , safe-exceptions
+    , split
+    , zip
+  default-language: Haskell2010
