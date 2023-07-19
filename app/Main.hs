@@ -24,9 +24,9 @@ process :: IO ()
 process = do
   args <- tryAny getArgs
   case args of
-    Left _ -> putStrLn "usage: bulk-preview [path to the import report excel file] [owner] [repo] [ref]"
+    Left _ -> putStrLn "usage: bulk-publish [path to the import report excel file] [owner] [repo] [ref]"
     Right [importReportPath, owner, repo, ref] -> extractAndPublish importReportPath owner repo ref >>= mapM_ return
-    _ -> putStrLn "usage: bulk-preview [path to the import report excel file] [owner] [repo] [ref]"
+    _ -> putStrLn "usage: bulk-publish [path to the import report excel file] [owner] [repo] [ref]"
 
 extractAndPublish :: String -> String -> String -> String -> IO [()]
 extractAndPublish importReportPath owner repo ref = do
