@@ -1,9 +1,10 @@
 module Main (main) where
 
 import Control.Exception.Safe
+import Options.Applicative
+import ParseArgs
 import ParseExcel (extract)
 import Post
-import System.Environment
 
 main :: IO ()
 main = do
@@ -11,13 +12,12 @@ main = do
 
 process :: IO ()
 process = do
-  args <- tryAny getArgs
-  case args of
-    Left _ -> putStrLn "usage: bulk-publish [path to the import report excel file] [owner] [repo] [ref]"
-    Right [importReportPath, owner, repo, ref] -> extractAndPublish importReportPath owner repo ref
-    _ -> putStrLn "usage: bulk-publish [path to the import report excel file] [owner] [repo] [ref]"
-
-extractAndPublish :: String -> String -> String -> String -> IO ()
-extractAndPublish importReport owner repo ref = do
+  let opts =
+        info (options <**> helper) $
+          fullDesc
+            <> header "Bulk Publish"
+            <> progDesc "A CLI tool for bulk publishing/previewing Franklin pages"
+  (Options importReport owner repo ref preview publish) <- execParser opts
   paths <- extract importReport
-  previewList paths owner repo ref
+  if preview then previewList paths owner repo ref else pure ()
+  if publish then publishList paths owner repo ref else pure ()

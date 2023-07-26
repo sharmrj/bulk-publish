@@ -31,6 +31,7 @@ dependencies:
 - safe-exceptions
 - split
 - time
+- optparse-applicative
 
 ghc-options:
 - -Wall

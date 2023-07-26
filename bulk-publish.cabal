@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      ParseArgs
       ParseExcel
       Post
       Utils
@@ -41,6 +42,7 @@ library
     , hexml
     , http-client
     , http-conduit
+    , optparse-applicative
     , safe-exceptions
     , split
     , time
@@ -63,6 +65,7 @@ executable bulk-publish-exe
     , hexml
     , http-client
     , http-conduit
+    , optparse-applicative
     , safe-exceptions
     , split
     , time
@@ -86,6 +89,7 @@ test-suite bulk-publish-test
     , hexml
     , http-client
     , http-conduit
+    , optparse-applicative
     , safe-exceptions
     , split
     , time
