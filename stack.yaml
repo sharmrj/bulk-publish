@@ -39,6 +39,7 @@ extra-deps:
 - hexml-0.3.4
 - async-2.2.4
 - safe-exceptions-0.1.7.4
+- time-1.12.2
 # extra-deps:
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git

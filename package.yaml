@@ -1,5 +1,5 @@
 name:                bulk-publish
-version:             0.1.0.0
+version:             0.1.0.1
 github:              "sharmrj/bulk-publish"
 license:             BSD3
 author:              "Raghav Sharma"
@@ -30,6 +30,7 @@ dependencies:
 - async
 - safe-exceptions
 - split
+- time
 
 ghc-options:
 - -Wall
