@@ -52,15 +52,15 @@ create :: Parser Actions
 create =
   Actions
     <$> switch
-      (long "preview" <> help "Preview all valid paths in the provided import report")
+      (long "preview" <> help "Preview all valid paths")
     <*> switch
-      (long "publish" <> help "Publish all valid paths in the provided import report")
+      (long "publish" <> help "Publish all valid paths")
 
 delete :: Parser Actions
 delete =
   flag'
     Delete
-    (long "delete" <> short 'd' <> help "Delete and implicitly unpublish all given urls")
+    (long "delete" <> short 'd' <> help "Unpublish all given urls and delete the previews")
 
 unpublish :: Parser Actions
 unpublish =
