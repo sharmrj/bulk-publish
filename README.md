@@ -2,16 +2,21 @@
 
 Usage:
 ```
-Usage: bulk-publish Import Report owner repo ref [--preview] [--publish]
+Usage: bulk-publish path/to/file owner repo ref
+                    [[--preview] [--publish] | --unpublish | (-d|--delete)]
 ```
 Options:
 ```
-  Import Report            path to import report
+Available options:
+  path/to/file             Path to the import report excel file or text file
+                           containing the paths delimited by newlines
   owner                    Owner of the project repo
   repo                     Name of the project repo
   ref                      Which branch of the repo to look in
-  --preview                Preview all valid paths in the provided import report
-  --publish                Publish all valid paths in the provided import report
+  --preview                Preview all valid paths
+  --publish                Publish all valid paths
+  --unpublish              Unpublish all given urls
+  -d,--delete              Unpublish all given urls and delete the previews
   -h,--help                Show this help text
 ```
 
