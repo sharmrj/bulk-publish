@@ -1,23 +1,32 @@
-module ParseArgs (Options (..), options) where
+module ParseArgs (Options (..), Actions (..), options) where
 
 import Options.Applicative
 
+data Actions
+  = Actions
+      { pre :: Bool,
+        pub :: Bool
+      }
+  | Delete
+  | Unpublish
+  deriving (Show)
+
 data Options = Options
-  { importReport :: String,
-    owner :: String,
-    repo :: String,
-    ref :: String,
-    preview :: Bool,
-    publish :: Bool
+  { fil :: String,
+    own :: String,
+    rep :: String,
+    re :: String,
+    acts :: Actions
   }
+  deriving (Show)
 
 options :: Parser Options
 options =
   Options
     <$> argument
       str
-      ( metavar "Import Report"
-          <> help "path to import report"
+      ( metavar "path/to/file"
+          <> help "Path to the import report excel file or text file containing the paths delimited by newlines"
       )
     <*> argument
       str
@@ -34,7 +43,27 @@ options =
       ( metavar "ref"
           <> help "Which branch of the repo to look in"
       )
-    <*> switch
+    <*> act
+
+act :: Parser Actions
+act = create <|> unpublish <|> delete
+
+create :: Parser Actions
+create =
+  Actions
+    <$> switch
       (long "preview" <> help "Preview all valid paths in the provided import report")
     <*> switch
       (long "publish" <> help "Publish all valid paths in the provided import report")
+
+delete :: Parser Actions
+delete =
+  flag'
+    Delete
+    (long "delete" <> short 'd' <> help "Delete and implicitly unpublish all given urls")
+
+unpublish :: Parser Actions
+unpublish =
+  flag'
+    Unpublish
+    (long "unpublish" <> help "Unpublish all given urls")

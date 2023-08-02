@@ -3,13 +3,19 @@
 module Utils
   ( concurrentlyLimited,
     writeLog,
+    getFileFormat,
+    FileFormat (..),
   )
 where
 
 import Control.Concurrent.Async
+import Control.Concurrent.MVar
 import Data.List (delete, sortBy)
 import Data.Ord (comparing)
 import Data.Time.Clock
+
+data FileFormat = TXT | XLSX | Unsupported
+  deriving (Show)
 
 concurrentlyLimited :: Integer -> [IO a] -> IO [a]
 concurrentlyLimited n tasks = conc n (zip [0 ..] tasks) [] []
@@ -28,5 +34,23 @@ concurrentlyLimited n tasks = conc n (zip [0 ..] tasks) [] []
 
 writeLog :: String -> IO ()
 writeLog m = do
+  lock <- newLock
+  let write = withLock lock . appendFile "bulk-publish-log.txt"
   time <- getCurrentTime
-  appendFile "bulk-publish-log.txt" (show time <> " " <> m <> "\n")
+  write (show time <> " " <> m <> "\n")
+
+type Lock = MVar ()
+
+newLock :: IO Lock
+newLock = newMVar ()
+
+withLock :: Lock -> IO a -> IO a
+withLock x = withMVar x . const
+
+getFileFormat :: String -> FileFormat
+getFileFormat s =
+  let ext = reverse . takeWhile (/= '.') . reverse
+   in case ext s of
+        "txt" -> TXT
+        "xlsx" -> XLSX
+        _ -> Unsupported
